@@ -258,6 +258,19 @@ public class SwipeMenuListView extends ListView implements Swipable {
         }
     }
 
+    public void smoothCloseMenu(int position) {
+        if (position >= getFirstVisiblePosition() && position <= getLastVisiblePosition()) {
+            View view = getChildAt(position - getFirstVisiblePosition());
+            if (view instanceof SwipeMenuLayout) {
+                mTouchPosition = position;
+                synchronized (lock) {
+                    mTouchView = (SwipeMenuLayout) view;
+                    mTouchView.smoothCloseMenu();
+                }
+            }
+        }
+    }
+
     private int dp2px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getContext().getResources()
                 .getDisplayMetrics());

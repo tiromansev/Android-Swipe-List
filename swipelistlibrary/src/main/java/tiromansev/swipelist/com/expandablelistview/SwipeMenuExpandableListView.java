@@ -293,13 +293,13 @@ public class SwipeMenuExpandableListView extends ExpandableListView implements S
             View view = getChildAt(position - getFirstVisiblePosition());
             if (view instanceof SwipeMenuLayout) {
                 mTouchPosition = position;
-                // synchronized (lock) {
+                 synchronized (lock) {
                     if (mTouchView != null && mTouchView.isOpen()) {
                         mTouchView.smoothCloseMenu();
                     }
                     mTouchView = (SwipeMenuLayout) view;
-                    mTouchView.openMenu();
-                // }
+                    mTouchView.smoothOpenMenu();
+                 }
             }
         }
     }
@@ -309,10 +309,10 @@ public class SwipeMenuExpandableListView extends ExpandableListView implements S
             View view = getChildAt(position - getFirstVisiblePosition());
             if (view instanceof SwipeMenuLayout) {
                 mTouchPosition = position;
-                // synchronized (lock) {
-                mTouchView = (SwipeMenuLayout) view;
-                mTouchView.closeMenu();
-                // }
+                synchronized (lock) {
+                    mTouchView = (SwipeMenuLayout) view;
+                    mTouchView.smoothCloseMenu();
+                }
             }
         }
     }
